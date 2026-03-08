@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franchise Application — Trackship Logistics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Header same as above -->
+    <header class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Trackship Logistics">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <div class="dropdown">
+                    <a href="service.html">Services <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="express-delivery.html">Express Delivery</a></li>
+                        <li><a href="courier-services.html">International Shipping</a></li>
+                        <li><a href="heavy-goods.html">Heavy Goods</a></li>
+                        <li><a href="bulk-sms.html">Bulk SMS</a></li>
+                        <li><a href="service.html">All Services</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <a href="franchise-opportunity.html" class="active">Franchise <i class="fas fa-chevron-down"
+                            style="font-size: 0.7rem;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="courier-franchise.html">Courier Franchise</a></li>
+                        <li><a href="logistics-franchise.html">Logistics Franchise</a></li>
+                        <li><a href="franchise-benefits.html">Benefits</a></li>
+                        <li><a href="franchise-support.html">Support</a></li>
+                        <li><a href="franchise-faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: var(--primary); color: #fff;">
+        <div class="container">
+            <h1 class="reveal">Apply for Franchise</h1>
+            <p class="reveal" style="color: #fff; opacity: 0.9; margin-top: 1rem;">Take the first step toward building
+                your logistics empire.</p>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto;" class="glass-card reveal">
+                <form id="franchiseForm">
+                    <div class="form-group">
+                        <label>Select Partnership Type</label>
+                        <select name="opportunity" required
+                            style="width: 100%; padding: 1rem; border-radius: 8px; border: 1px solid #ddd;">
+                            <option value="Retail Franchise">Retail Courier Point</option>
+                            <option value="Logistics Hub">Logistics Hub</option>
+                            <option value="Regional Master">Regional Master</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Phone Number" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <input type="text" name="pincode" placeholder="Desired Pincode" required pattern="[0-9]{6}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="state" placeholder="State" required>
+                        </div>
+                    </div>
+                    <input type="hidden" name="service" value="Franchise Partnership">
+                    <button type="submit" class="btn btn-accent" style="width: 100%;">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-logo"><img src="img/logo.png" alt="Trackship Logistics"></a>
+                    <p style="margin-top: 1rem;">Trackship Logistics: Your trusted source for logistics expertise and
+                        delivery excellence across India.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/trackshiplogistics" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Franchise</h4>
+                    <ul class="footer-links">
+                        <li><a href="courier-franchise.html">Retail Franchise</a></li>
+                        <li><a href="logistics-franchise.html">Logistics Hub</a></li>
+                        <li><a href="franchise-benefits.html">Benefits</a></li>
+                        <li><a href="franchise-support.html">Support</a></li>
+                        <li><a href="franchise-faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="express-delivery.html">Express Delivery</a></li>
+                        <li><a href="bulk-sms.html">Bulk SMS</a></li>
+                        <li><a href="b2b.html">B2B Solutions</a></li>
+                        <li><a href="blog.html">Industry Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Corporate</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Trackship Logistics. All rights reserved.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Actions -->
+    <a href="https://wa.me/919136601185" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://instagram.com/trackshiplogistics" target="_blank" class="instagram-float"><i
+            class="fab fa-instagram"></i></a>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('franchiseForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            submitToAPI('franchiseForm');
+        });
+    </script>
+</body>
+
+</html>
