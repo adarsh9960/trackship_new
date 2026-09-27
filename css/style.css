@@ -1206,6 +1206,60 @@ footer::before {
     margin-bottom: 4rem;
 }
 
+/* "Latest from our blog" footer block.
+   At desktop width the footer grid only fits four 200px columns, so with five
+   columns of content the last one (Company) wraps onto a second row and leaves
+   roughly three empty column slots beside it. This block spans those slots to
+   fill the gap.
+   Hidden below 1024px: there the grid fits three columns or fewer, so the block
+   would wrap badly instead of filling anything - and it is not wanted on
+   mobile at all. */
+.footer-blog {
+    display: none;
+}
+
+.footer-blog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-blog-list a {
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    transition: color 0.2s ease;
+}
+
+.footer-blog-list a:hover {
+    color: var(--accent);
+}
+
+.footer-blog-list .fb-cat {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+}
+
+@media (min-width: 1024px) {
+    .footer-blog {
+        display: block;
+        grid-column: span 3;
+    }
+
+    .footer-blog-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.9rem 1.5rem;
+    }
+}
+
 .footer-col h4 {
     color: #fff;
     margin-bottom: 1.5rem;
