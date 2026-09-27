@@ -465,6 +465,36 @@ header.scrolled {
     }
 }
 
+/* Sustainability split: narrow image on the left, wider copy on the right.
+   Declared here instead of as an inline style, because an inline
+   grid-template-columns outranks the stylesheet - including the media query
+   above - which left the image column 0px wide on phones. minmax(0, ...) stops
+   the copy's min-content from starving the image track. */
+.sustainability-grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+}
+
+@media (max-width: 992px) {
+    .sustainability-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+    }
+}
+
+.eco-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 576px) {
+    .eco-cards {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+}
+
 .hero-badge {
     background: rgba(255, 255, 255, 0.1);
     padding: 0.5rem 1rem;
