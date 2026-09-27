@@ -2018,3 +2018,42 @@ footer::before {
         grid-template-columns: 1fr;
     }
 }
+
+/* WhatsApp popup-blocked fallback */
+.wa-fallback {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(37, 211, 102, 0.08);
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.wa-fallback-note {
+    font-size: 0.875rem;
+    color: var(--text-body);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+}
+
+.wa-fallback-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: #25d366;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.875rem 1.25rem;
+    border-radius: 50px;
+    transition: var(--transition);
+}
+
+.wa-fallback-btn:hover {
+    background: #1ebe5a;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}

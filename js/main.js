@@ -317,7 +317,7 @@ function initWhatsAppModal() {
     // Form submission - redirect to WhatsApp with details
     form?.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const formData = new FormData(form);
         const data = {
             fullName: formData.get('fullName'),
@@ -348,20 +348,73 @@ I would like to inquire about your services.
 
 Please contact me regarding my logistics requirements.`;
 
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/919136601185?text=${encodedMessage}`;
+        const whatsappUrl = 'https://wa.me/919136601185?text=' + encodeURIComponent(message);
 
-        // Close modal
+        // window.open() is frequently vetoed by popup blockers and privacy
+        // extensions (Brave/uBlock block wa.me), and some browsers refuse it
+        // from a submit handler. Detect the failure and fall back instead of
+        // silently doing nothing.
+        let opened = null;
+        try {
+            opened = window.open(whatsappUrl, '_blank');
+        } catch (err) {
+            opened = null;
+        }
+
+        const blocked = !opened || opened.closed || typeof opened.closed === 'undefined';
+
+        if (blocked) {
+            // Keep the modal open and hand the user a real link they can tap.
+            showWhatsAppFallback(whatsappUrl, form);
+            showToast('Tap the green WhatsApp button to continue', 'error');
+            return;
+        }
+
         closeModal();
-        
-        // Open WhatsApp
-        window.open(whatsappUrl, '_blank');
-        
-        showToast('Redirecting to WhatsApp...', 'success');
-        
-        // Reset form
+        removeWhatsAppFallback();
+        showToast('Opening WhatsApp...', 'success');
         form.reset();
     });
+}
+
+// Render a tappable WhatsApp link inside the modal when a popup is blocked.
+// A real anchor click is a direct user gesture and cannot be popup-blocked.
+function showWhatsAppFallback(url, form) {
+    const existing = document.getElementById('waFallback');
+    if (existing) {
+        existing.querySelector('a').href = url;
+        return;
+    }
+
+    const wrap = document.createElement('div');
+    wrap.id = 'waFallback';
+    wrap.className = 'wa-fallback';
+
+    const note = document.createElement('p');
+    note.className = 'wa-fallback-note';
+    note.textContent = 'Your browser blocked the automatic redirect. Tap below to send your details on WhatsApp:';
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.className = 'btn wa-fallback-btn';
+    link.innerHTML = '<i class="fab fa-whatsapp" aria-hidden="true"></i> Open WhatsApp';
+
+    wrap.appendChild(note);
+    wrap.appendChild(link);
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn && submitBtn.parentNode) {
+        submitBtn.parentNode.insertBefore(wrap, submitBtn);
+    } else {
+        form.appendChild(wrap);
+    }
+}
+
+function removeWhatsAppFallback() {
+    const el = document.getElementById('waFallback');
+    if (el) el.remove();
 }
 
 // Interactive Timeline Animation
