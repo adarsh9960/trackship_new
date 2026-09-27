@@ -278,6 +278,47 @@ function initInstagramFloat() {
     }
 }
 
+// ---------------------------------------------------------------------------
+// Visual-viewport pinning for modals.
+//
+// .modal-overlay is position:fixed with top:0/bottom:0, so it is sized to the
+// LAYOUT viewport. On a phone the browser toolbar and the on-screen keyboard
+// cover part of that area, which leaves the bottom of the dialog (the submit
+// button) in a region the user cannot scroll to: the scroll range ends at the
+// layout viewport, not at the visible edge. Pinning the overlay to the visual
+// viewport makes its scroll area end exactly where the user's screen ends, so
+// the button can always be scrolled into view.
+// ---------------------------------------------------------------------------
+function pinToVisualViewport(el) {
+    var vv = window.visualViewport;
+    if (!vv || !el) return function () {};
+
+    function sync() {
+        el.style.top = vv.offsetTop + 'px';
+        el.style.height = vv.height + 'px';
+        el.style.bottom = 'auto';
+    }
+
+    sync();
+    // visualViewport.resize is what fires when the on-screen keyboard opens on
+    // iOS; window.resize covers browsers that resize the layout viewport
+    // instead (Android with interactive-widget=resizes-content).
+    vv.addEventListener('resize', sync);
+    vv.addEventListener('scroll', sync);
+    window.addEventListener('resize', sync);
+    window.addEventListener('orientationchange', sync);
+
+    return function unpin() {
+        vv.removeEventListener('resize', sync);
+        vv.removeEventListener('scroll', sync);
+        window.removeEventListener('resize', sync);
+        window.removeEventListener('orientationchange', sync);
+        el.style.top = '';
+        el.style.height = '';
+        el.style.bottom = '';
+    };
+}
+
 // WhatsApp Inquiry Modal
 function initWhatsAppModal() {
     const whatsappBtn = document.getElementById('whatsappFloatBtn');
@@ -287,15 +328,23 @@ function initWhatsAppModal() {
     
     if (!whatsappBtn || !modal) return;
 
+    // Tracks the visual-viewport binding while the modal is open
+    let unpinOverlay = null;
+
     // Open modal
     whatsappBtn.addEventListener('click', (e) => {
         e.preventDefault();
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+        unpinOverlay = pinToVisualViewport(modal);
     });
 
     // Close modal
     const closeModal = () => {
+        if (unpinOverlay) {
+            unpinOverlay();
+            unpinOverlay = null;
+        }
         modal.style.display = 'none';
         document.body.style.overflow = '';
     };
@@ -312,6 +361,17 @@ function initWhatsAppModal() {
         if (e.key === 'Escape' && modal.style.display === 'flex') {
             closeModal();
         }
+    });
+
+    // Keep the field being edited visible once the on-screen keyboard has
+    // animated in - otherwise the keyboard hides what is being typed.
+    form?.addEventListener('focusin', (e) => {
+        if (!e.target || e.target.tagName !== 'INPUT') return;
+        setTimeout(function () {
+            if (e.target.isConnected) {
+                e.target.scrollIntoView({ block: 'center' });
+            }
+        }, 300);
     });
 
     // Form submission - redirect to WhatsApp with details

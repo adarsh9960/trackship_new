@@ -2080,8 +2080,10 @@ footer::before {
 
 /* Small-screen dialogs: keep the whole form (and its submit button) reachable */
 @media (max-width: 576px) {
+    /* Extra bottom gap so the submit button is never flush against the edge
+       once the overlay is scrolled to its end. */
     .modal-overlay {
-        padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+        padding: 0.5rem 0.5rem calc(1rem + env(safe-area-inset-bottom, 0px));
     }
 
     .modal-content {
