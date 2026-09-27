@@ -1428,6 +1428,29 @@ footer::before {
     font-size: 0.875rem;
 }
 
+/* Site credit / backlink. width:100% makes it take its own row inside the
+   wrapping .footer-bottom flex row rather than competing with the copyright
+   and the legal links. */
+.site-credit {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.site-credit a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.site-credit a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
 /* Mobile Quick Form Button */
 .quick-form-btn {
     position: fixed;
