@@ -1549,9 +1549,9 @@ footer::before {
     .call-float {
         display: flex;
         position: fixed;
-        /* Instagram sits at bottom: 2rem and is 30px tall, so it ends 62px up;
-           4.75rem (76px) leaves a clear gap above it */
-        bottom: 4.75rem;
+        /* Instagram sits at bottom: 2rem (32px) and is now 50px tall, so it ends
+           82px up; 6rem (96px) keeps the same 14px gap above it */
+        bottom: 6rem;
         left: 1rem;
         width: 50px;
         height: 50px;
@@ -1672,11 +1672,12 @@ footer::before {
 
 @media (max-width: 768px) {
     .instagram-float {
-        width: 30px;
-        height: 30px;
+        /* matched to .call-float so the two left-side floaters read as a pair */
+        width: 50px;
+        height: 50px;
         bottom: 2rem;
         left: 1rem;
-        font-size: 30px;
+        font-size: 33px;
     }
 }
 
