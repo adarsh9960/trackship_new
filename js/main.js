@@ -104,19 +104,27 @@ function initCounters() {
 
     counterItems.forEach(item => observer.observe(item));
 
+    // Count-up runs for a fixed wall-clock duration. Previously this was
+    // 50 steps x 30ms = 1.5s, which both felt rushed and made every counter
+    // finish in lockstep regardless of its value.
+    const COUNT_DURATION = 3000; // ms
+
     function animateCounter(el) {
-        const target = parseInt(el.getAttribute('data-count'));
-        let current = 0;
-        const increment = target / 50; // Adjust speed
+        const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+        const suffix = el.dataset.suffix || '';
+        const start = performance.now();
+
         const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                el.innerText = target.toLocaleString() + (el.dataset.suffix || "");
+            const progress = Math.min((performance.now() - start) / COUNT_DURATION, 1);
+            // ease-out cubic so the numbers decelerate into their final value
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.innerText = Math.floor(target * eased).toLocaleString() + suffix;
+
+            if (progress >= 1) {
+                el.innerText = target.toLocaleString() + suffix;
                 clearInterval(timer);
-            } else {
-                el.innerText = Math.floor(current).toLocaleString() + (el.dataset.suffix || "");
             }
-        }, 30);
+        }, 16);
     }
 }
 

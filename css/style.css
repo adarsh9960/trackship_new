@@ -750,7 +750,10 @@ header.scrolled {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Fixed four columns: the four stats stay on ONE row at every width.
+       minmax(200px, 1fr) used to collapse them into a single column once the
+       viewport was narrower than four of those tracks. */
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     text-align: center;
     position: relative;
@@ -761,6 +764,52 @@ header.scrolled {
     font-size: 3rem;
     color: var(--accent);
     margin-bottom: 0.5rem;
+}
+
+/* Keep all four stats on one row as the viewport narrows, by scaling the
+   numbers and labels rather than reflowing into extra rows. */
+@media (max-width: 768px) {
+    .stats-grid {
+        gap: 0.75rem;
+    }
+
+    .stat-item h3 {
+        font-size: 1.9rem;
+    }
+
+    .stat-item p {
+        font-size: 0.78rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        gap: 0.4rem;
+    }
+
+    .stat-item h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-item p {
+        font-size: 0.66rem;
+        line-height: 1.3;
+    }
+}
+
+@media (max-width: 400px) {
+    .stats-grid {
+        gap: 0.25rem;
+    }
+
+    .stat-item h3 {
+        font-size: 1.12rem;
+    }
+
+    .stat-item p {
+        font-size: 0.6rem;
+    }
 }
 
 /* FAQ Accordion */
@@ -1309,15 +1358,15 @@ footer::before {
     position: fixed;
     bottom: 2rem;
     left: 2rem;
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25px;
+    font-size: 40px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     transition: var(--transition);
