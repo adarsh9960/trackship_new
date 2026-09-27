@@ -436,7 +436,10 @@ header.scrolled {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: radial-gradient(circle at top right, var(--secondary), var(--primary));
+    /* No background colour - the hero video is the backdrop. The near-black
+       value below is only a fallback for the case where the video fails to
+       load, since the hero text is white and the page body is white. */
+    background: #111;
     position: relative;
     padding-top: 80px;
     overflow: hidden;
@@ -456,7 +459,8 @@ header.scrolled {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    /* single column - the hero image column was removed */
+    grid-template-columns: 1fr;
     gap: 4rem;
     align-items: center;
 }
@@ -543,9 +547,6 @@ header.scrolled {
     }
 }
 
-.hero-img {
-    position: relative;
-}
 
 .glass-badge {
     position: absolute;
@@ -590,7 +591,7 @@ header.scrolled {
     height: 100%;
     object-fit: cover;
     z-index: 0;
-    opacity: 0.1;
+    opacity: 1;
 }
 
 .hero-video-desktop {
@@ -614,11 +615,7 @@ header.scrolled {
 .hero-content {
     position: relative;
     z-index: 2;
-}
-
-.hero-img {
-    position: relative;
-    z-index: 2;
+    max-width: 720px;
 }
 
 /* Partners Marquee */
