@@ -5,9 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us — Trackship Logistics</title>
+    <meta name="description" content="Contact Trackship Logistics - Get in touch for courier services, B2B shipping, franchise opportunities, or customer support. Mumbai HQ, 24/7 support available.">
+    <meta name="keywords" content="contact Trackship Logistics, customer support, logistics inquiry, franchise contact">
     <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact Trackship Logistics",
+  "description": "Contact Trackship Logistics for courier services, B2B shipping, franchise opportunities",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Trackship Logistics",
+    "url": "https://trackshiplogistics.com/",
+    "telephone": "+91-9136601185",
+    "email": "info@trackshiplogistics.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "411, 4th Floor, Lotus Business Park, Near HP Petrol Pump, SV Road, Malad West",
+      "addressLocality": "Mumbai",
+      "addressRegion": "Maharashtra",
+      "postalCode": "400064",
+      "addressCountry": "IN"
+    }
+  }
+}
+    </script>
 </head>
 
 <body>
@@ -64,7 +89,7 @@
         </div>
     </header>
 
-    <!-- Mobile Nav -->
+        <!-- Mobile Nav -->
     <div class="mobile-overlay"></div>
     <div class="mobile-nav">
         <div class="mobile-nav-header" style="display: flex; justify-content: space-between; align-items: center;">
@@ -76,8 +101,49 @@
         <div class="mobile-nav-links">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
-            <a href="express-delivery.html">Services</a>
-            <a href="e-commerce-logistics.html">B2B Solutions</a>
+            
+            <!-- Services Dropdown -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-toggle" type="button">
+                    Services <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="mobile-dropdown-menu">
+                    <a href="express-delivery.html">Express Delivery</a>
+                    <a href="courier-services.html">International Shipping</a>
+                    <a href="heavy-goods.html">Heavy Goods</a>
+                    <a href="bulk-sms.html">Bulk SMS</a>
+                    <a href="service.html">All Services</a>
+                </div>
+            </div>
+            
+            <!-- Franchise Dropdown -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-toggle" type="button">
+                    Franchise <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="mobile-dropdown-menu">
+                    <a href="franchise-opportunity.html">Opportunity Hub</a>
+                    <a href="courier-franchise.html">Courier Franchise</a>
+                    <a href="logistics-franchise.html">Logistics Franchise</a>
+                    <a href="franchise-benefits.html">Benefits</a>
+                    <a href="franchise-support.html">Support</a>
+                    <a href="franchise-faq.html">FAQs</a>
+                </div>
+            </div>
+            
+            <!-- B2B Solutions Dropdown -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-toggle" type="button">
+                    B2B Solutions <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="mobile-dropdown-menu">
+                    <a href="e-commerce-logistics.html">E-commerce Logistics</a>
+                    <a href="warehouse-solutions.html">Warehouse Solutions</a>
+                    <a href="supply-chain.html">Supply Chain</a>
+                    <a href="b2b.html">All B2B Solutions</a>
+                </div>
+            </div>
+            
             <a href="blog.html">Blog</a>
             <a href="contact.html">Contact Us</a>
         </div>
@@ -204,6 +270,26 @@
         </div>
     </section>
 
+    <!-- Interactive India Franchise Map -->
+    <section class="section-padding" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 3rem;">
+                <span class="section-subtitle">Our Network</span>
+                <h2 class="section-title">Franchise Locations Across India</h2>
+                <p style="max-width: 700px; margin: 1rem auto 0; color: var(--text-body);">Click on any pin to view franchise details. We have 750+ locations across 28 states.</p>
+            </div>
+            <div class="map-container reveal" id="franchiseMap" style="height: 500px; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg);"></div>
+            <div id="franchiseInfo" class="map-info-panel" style="display: none; margin-top: 2rem; padding: 1.5rem; background: #fff; border-radius: 12px; box-shadow: var(--shadow-md);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 id="franchiseCity" style="color: var(--primary); margin: 0;"></h3>
+                    <button class="map-close-btn" onclick="closeFranchiseInfo()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-body);">&times;</button>
+                </div>
+                <div id="franchiseDetails" style="color: var(--text-body);"></div>
+                <a id="franchiseCTA" href="franchise-opportunity.html" class="btn btn-accent" style="display: inline-block; margin-top: 1rem;">Enquire About This Location</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Maps Embed -->
     <section>
         <iframe
@@ -247,59 +333,72 @@
         </div>
     </section>
 
-    <!-- Footer -->
+        <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <a href="index.html" class="footer-logo"><img src="img/logo.png" alt="Trackship Logistics"></a>
-                    <p style="margin-top: 1rem;">Trackship Logistics: Your trusted source for logistics expertise and
-                        delivery excellence across India.</p>
+                    <p style="margin-top: 1rem;">Trackship Logistics is a premier courier and logistics provider offering end-to-end supply chain solutions across India.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com/trackshiplogistics" target="_blank"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://facebook.com/trackshiplogistics" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/trackshiplogistics" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/company/trackshiplogistics" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/trackshiplogistics" target="_blank"><i class="fab fa-x-twitter"></i></a>
                     </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+919136601185"><i class="fas fa-phone-alt" style="margin-right: 8px; color: var(--accent);"></i>+91 91366 01185</a></li>
+                        <li><a href="mailto:info@trackshiplogistics.com"><i class="fas fa-envelope" style="margin-right: 8px; color: var(--accent);"></i>info@trackshiplogistics.com</a></li>
+                        <li><a href="https://maps.google.com/?q=411,+4th+Floor,+Lotus+Business+Park+Premises,+Near+HP+Petrol+Pump,+SV+Road,+Malad+West,+Mumbai,+Maharashtra+400064" target="_blank"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--accent);"></i>411, 4th Floor, Lotus Business Park Premises, Near HP Petrol Pump, SV Road, Malad West, Mumbai, Maharashtra - 400064</a></li>
+                        <li><i class="fas fa-clock" style="margin-right: 8px; color: var(--accent);"></i>Mon – Sat: 9:00 AM – 7:00 PM</li>
+                    </ul>
                 </div>
                 <div class="footer-col">
                     <h4 class="footer-title">Franchise</h4>
                     <ul class="footer-links">
-                        <li><a href="courier-franchise.html">Retail Franchise</a></li>
-                        <li><a href="logistics-franchise.html">Logistics Hub</a></li>
-                        <li><a href="franchise-benefits.html">Benefits</a></li>
-                        <li><a href="franchise-support.html">Support</a></li>
-                        <li><a href="franchise-faq.html">FAQs</a></li>
+                        <li><a href="courier-franchise.html">Courier Point Franchise</a></li>
+                        <li><a href="logistics-franchise.html">Logistics Hub Franchise</a></li>
+                        <li><a href="franchise-benefits.html">Franchise Benefits</a></li>
+                        <li><a href="franchise-faq.html">Franchise FAQs</a></li>
+                        <li><a href="franchise-apply.html">Apply Now</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4 class="footer-title">Services</h4>
                     <ul class="footer-links">
                         <li><a href="express-delivery.html">Express Delivery</a></li>
+                        <li><a href="courier-services.html">International Courier</a></li>
+                        <li><a href="heavy-goods.html">Heavy Goods Transport</a></li>
                         <li><a href="bulk-sms.html">Bulk SMS</a></li>
-                        <li><a href="b2b.html">B2B Solutions</a></li>
-                        <li><a href="blog.html">Industry Blog</a></li>
+                        <li><a href="b2b.html">B2B Logistics</a></li>
+                        <li><a href="e-commerce-logistics.html">E-commerce Logistics</a></li>
+                        <li><a href="warehouse-solutions.html">Warehousing</a></li>
+                        <li><a href="supply-chain.html">Supply Chain</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4 class="footer-title">Corporate</h4>
+                    <h4 class="footer-title">Company</h4>
                     <ul class="footer-links">
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="sitemap.html">Sitemap</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Trackship Logistics. All rights reserved.</p>
-                <div style="display: flex; gap: 1.5rem;">
+                <p>&copy; 2025 Trackship Logistics. All rights reserved. | GSTIN: 27ABAFT0131C1ZV</p>
+                <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem;">
                     <a href="privacy.html">Privacy Policy</a>
                     <a href="terms.html">Terms of Service</a>
+                    <a href="sitemap.html">Sitemap</a>
                 </div>
             </div>
-        </div>
         </div>
     </footer>
 
@@ -347,9 +446,9 @@
 
     <!-- Floating Actions -->
     <div class="quick-form-btn">Quick Inquiry</div>
-    <a href="https://wa.me/919136601185" class="whatsapp-float" target="_blank">
+    <button class="whatsapp-float" id="whatsappFloatBtn" title="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
-    </a>
+    </button>
     <div class="back-to-top">
         <i class="fas fa-chevron-up"></i>
     </div>
@@ -358,7 +457,296 @@
         title="Follow us on Instagram">
         <i class="fab fa-instagram"></i>
     </a>
+    
+    <!-- WhatsApp Inquiry Modal -->
+    <div class="modal-overlay" id="whatsappModal">
+        <div class="modal-content">
+            <div class="modal-close"><i class="fas fa-times"></i></div>
+            <div class="modal-header">
+                <i class="fab fa-whatsapp" style="font-size: 2.5rem; color: #25d366; margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Chat on WhatsApp</h3>
+                <p style="margin-bottom: 2rem; color: var(--text-body);">Fill in your details and we'll connect you directly on WhatsApp.</p>
+            </div>
+            <form id="whatsappForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name <span class="required">*</span></label>
+                        <input type="text" name="fullName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number <span class="required">*</span></label>
+                        <input type="tel" name="phone" placeholder="Enter 10-digit mobile number" required pattern="[0-9]{10}" maxlength="10">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pincode <span class="required">*</span></label>
+                        <input type="text" name="pincode" placeholder="6-digit pincode" required pattern="[0-9]{6}" maxlength="6">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>City <span class="required">*</span></label>
+                        <input type="text" name="city" placeholder="Enter your city" required>
+                    </div>
+                    <div class="form-group">
+                        <label>State <span class="required">*</span></label>
+                        <input type="text" name="state" placeholder="Enter your state" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-accent" style="width: 100%;">
+                    <i class="fab fa-whatsapp" style="margin-right: 0.5rem;"></i> Continue to WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Indian franchise locations data
+        const franchiseLocations = [
+            // Maharashtra
+            {city: "Mumbai", state: "Maharashtra", lat: 19.0760, lng: 72.8777, type: "Courier Point", count: 45},
+            {city: "Pune", state: "Maharashtra", lat: 18.5204, lng: 73.8567, type: "Logistics Hub", count: 32},
+            {city: "Nagpur", state: "Maharashtra", lat: 21.1458, lng: 79.0882, type: "Courier Point", count: 18},
+            {city: "Nashik", state: "Maharashtra", lat: 19.9975, lng: 73.7898, type: "Courier Point", count: 12},
+            {city: "Aurangabad", state: "Maharashtra", lat: 19.8762, lng: 75.3433, type: "Courier Point", count: 15},
+            {city: "Solapur", state: "Maharashtra", lat: 17.6599, lng: 75.9064, type: "Courier Point", count: 8},
+            
+            // Delhi NCR
+            {city: "New Delhi", state: "Delhi", lat: 28.6139, lng: 77.2090, type: "Logistics Hub", count: 38},
+            {city: "Gurgaon", state: "Haryana", lat: 28.4595, lng: 77.0266, type: "B2B Hub", count: 28},
+            {city: "Noida", state: "Uttar Pradesh", lat: 28.5355, lng: 77.3910, type: "Courier Point", count: 22},
+            {city: "Faridabad", state: "Haryana", lat: 28.4089, lng: 77.3178, type: "Courier Point", count: 14},
+            
+            // Karnataka
+            {city: "Bangalore", state: "Karnataka", lat: 12.9716, lng: 77.5946, type: "Logistics Hub", count: 42},
+            {city: "Mysore", state: "Karnataka", lat: 12.2958, lng: 76.6394, type: "Courier Point", count: 16},
+            {city: "Hubli", state: "Karnataka", lat: 15.3647, lng: 75.1240, type: "Courier Point", count: 10},
+            
+            // Tamil Nadu
+            {city: "Chennai", state: "Tamil Nadu", lat: 13.0827, lng: 80.2707, type: "Logistics Hub", count: 35},
+            {city: "Coimbatore", state: "Tamil Nadu", lat: 11.0168, lng: 76.9558, type: "Courier Point", count: 20},
+            {city: "Madurai", state: "Tamil Nadu", lat: 9.9252, lng: 78.1198, type: "Courier Point", count: 14},
+            {city: "Salem", state: "Tamil Nadu", lat: 11.6643, lng: 78.1460, type: "Courier Point", count: 11},
+            
+            // Telangana
+            {city: "Hyderabad", state: "Telangana", lat: 17.3850, lng: 78.4867, type: "Logistics Hub", count: 38},
+            {city: "Warangal", state: "Telangana", lat: 17.9689, lng: 79.5941, type: "Courier Point", count: 12},
+            
+            // Gujarat
+            {city: "Ahmedabad", state: "Gujarat", lat: 23.0225, lng: 72.5714, type: "Logistics Hub", count: 30},
+            {city: "Surat", state: "Gujarat", lat: 21.1702, lng: 72.8311, type: "Courier Point", count: 25},
+            {city: "Vadodara", state: "Gujarat", lat: 22.3072, lng: 73.1812, type: "Courier Point", count: 18},
+            {city: "Rajkot", state: "Gujarat", lat: 22.3039, lng: 70.8022, type: "Courier Point", count: 14},
+            
+            // Rajasthan
+            {city: "Jaipur", state: "Rajasthan", lat: 26.9124, lng: 75.7873, type: "Logistics Hub", count: 28},
+            {city: "Jodhpur", state: "Rajasthan", lat: 26.2389, lng: 73.0243, type: "Courier Point", count: 15},
+            {city: "Udaipur", state: "Rajasthan", lat: 24.5854, lng: 73.7125, type: "Courier Point", count: 10},
+            
+            // Uttar Pradesh
+            {city: "Lucknow", state: "Uttar Pradesh", lat: 26.8467, lng: 80.9462, type: "Logistics Hub", count: 26},
+            {city: "Kanpur", state: "Uttar Pradesh", lat: 26.4499, lng: 80.3319, type: "Courier Point", count: 18},
+            {city: "Agra", state: "Uttar Pradesh", lat: 27.1767, lng: 78.0081, type: "Courier Point", count: 12},
+            {city: "Varanasi", state: "Uttar Pradesh", lat: 25.3176, lng: 82.9739, type: "Courier Point", count: 14},
+            
+            // West Bengal
+            {city: "Kolkata", state: "West Bengal", lat: 22.5726, lng: 88.3639, type: "Logistics Hub", count: 32},
+            {city: "Siliguri", state: "West Bengal", lat: 26.7271, lng: 88.3953, type: "Courier Point", count: 10},
+            
+            // Punjab
+            {city: "Ludhiana", state: "Punjab", lat: 30.9010, lng: 75.8573, type: "Logistics Hub", count: 24},
+            {city: "Amritsar", state: "Punjab", lat: 31.6340, lng: 74.8723, type: "Courier Point", count: 12},
+            
+            // Kerala
+            {city: "Kochi", state: "Kerala", lat: 9.9312, lng: 76.2673, type: "Logistics Hub", count: 22},
+            {city: "Thiruvananthapuram", state: "Kerala", lat: 8.5241, lng: 76.9366, type: "Courier Point", count: 11},
+            
+            // Other major cities
+            {city: "Indore", state: "Madhya Pradesh", lat: 22.7196, lng: 75.8577, type: "Logistics Hub", count: 20},
+            {city: "Bhopal", state: "Madhya Pradesh", lat: 23.2599, lng: 77.4126, type: "Courier Point", count: 13},
+            {city: "Patna", state: "Bihar", lat: 25.5941, lng: 85.1376, type: "Courier Point", count: 15},
+            {city: "Bhubaneswar", state: "Odisha", lat: 20.2961, lng: 85.8245, type: "Courier Point", count: 12},
+            {city: "Guwahati", state: "Assam", lat: 26.1445, lng: 91.7362, type: "Logistics Hub", count: 16},
+            {city: "Ranchi", state: "Jharkhand", lat: 23.3441, lng: 85.3096, type: "Courier Point", count: 10},
+            {city: "Chandigarh", state: "Chandigarh", lat: 30.7333, lng: 76.7794, type: "Courier Point", count: 14},
+            {city: "Dehradun", state: "Uttarakhand", lat: 30.3165, lng: 78.0322, type: "Courier Point", count: 8},
+            {city: "Goa", state: "Goa", lat: 15.2993, lng: 74.1240, type: "Courier Point", count: 9},
+        ];
+
+        // Initialize Leaflet Map
+        let map;
+        let markers = [];
+        let infoPanel = document.getElementById('franchiseInfo');
+        let franchiseCity = document.getElementById('franchiseCity');
+        let franchiseDetails = document.getElementById('franchiseDetails');
+        
+        function initFranchiseMap() {
+            const mapContainer = document.getElementById('franchiseMap');
+            if (!mapContainer) return;
+            
+            // Initialize map centered on India
+            map = L.map('franchiseMap').setView([20.5937, 78.9629], 5);
+            
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18
+            }).addTo(map);
+            
+            // Custom pin icons
+            const courierIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            
+            const hubIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            
+            const b2bIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            
+            // Add markers for each location
+            franchiseLocations.forEach(location => {
+                let icon = courierIcon;
+                if (location.type === 'Logistics Hub') icon = hubIcon;
+                else if (location.type === 'B2B Hub') icon = b2bIcon;
+                
+                const marker = L.marker([location.lat, location.lng], { icon: icon })
+                    .addTo(map)
+                    .on('click', () => showFranchiseInfo(location));
+                
+                // Add popup
+                marker.bindPopup(`
+                    <strong>${location.city}, ${location.state}</strong><br>
+                    Type: ${location.type}<br>
+                    Franchisees: ${location.count}
+                `);
+                
+                markers.push(marker);
+            });
+            
+            // Fit map to show all markers
+            const group = L.featureGroup(markers);
+            map.fitBounds(group.getBounds().pad(0.1));
+        }
+        
+        function showFranchiseInfo(location) {
+            franchiseCity.textContent = `${location.city}, ${location.state}`;
+            franchiseDetails.innerHTML = `
+                <p><strong>Franchise Type:</strong> ${location.type}</p>
+                <p><strong>Active Franchisees:</strong> ${location.count}+</p>
+                <p><strong>Coverage:</strong> ${location.city} & surrounding areas</p>
+                <p><strong>Services:</strong> ${getServicesForType(location.type)}</p>
+            `;
+            infoPanel.style.display = 'block';
+            infoPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function closeFranchiseInfo() {
+            infoPanel.style.display = 'none';
+        }
+        
+        function getServicesForType(type) {
+            const services = {
+                'Courier Point': 'Express Delivery, Domestic Shipping, COD, Returns Pickup',
+                'Logistics Hub': 'Warehousing, B2B Shipping, Inventory Management, Distribution',
+                'B2B Hub': 'Corporate Shipping, API Integration, Dedicated Account Manager, Bulk Orders'
+            };
+            return services[type] || 'All Services Available';
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load Leaflet CSS
+            if (!document.querySelector('link[href*="leaflet.css"]')) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                document.head.appendChild(link);
+            }
+            
+            // Wait for Leaflet to load
+            const checkLeaflet = setInterval(() => {
+                if (typeof L !== 'undefined') {
+                    clearInterval(checkLeaflet);
+                    initFranchiseMap();
+                }
+            }, 100);
+        });
+    </script>
+    
+    <!-- Cookie Consent -->
+    <div class="cookie-consent" id="cookieConsent" role="dialog" aria-label="Cookie consent" aria-describedby="cookieDesc">
+        <div class="cookie-consent-content">
+            <div class="cookie-consent-header">
+                <h3 class="cookie-consent-title">We value your privacy</h3>
+            </div>
+            <p class="cookie-consent-text" id="cookieDesc">
+                We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic.
+                By clicking "Accept All", you consent to our use of cookies. 
+                <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
+            </p>
+            <div class="cookie-consent-actions">
+                <button class="cookie-btn cookie-btn-primary" id="cookieAcceptAll">Accept All</button>
+                <button class="cookie-btn cookie-btn-secondary" id="cookieReject">Reject Non-Essential</button>
+                <button class="cookie-btn cookie-btn-ghost" id="cookiePreferences">Manage Preferences</button>
+            </div>
+            <div class="cookie-preferences" id="cookiePreferencesPanel">
+                <div class="cookie-pref-item">
+                    <div class="cookie-pref-info">
+                        <div class="cookie-pref-name">Essential Cookies</div>
+                        <div class="cookie-pref-desc">Required for the website to function properly. Cannot be disabled.</div>
+                    </div>
+                    <button class="cookie-toggle active" disabled aria-label="Essential cookies enabled"></button>
+                </div>
+                <div class="cookie-pref-item">
+                    <div class="cookie-pref-info">
+                        <div class="cookie-pref-name">Analytics Cookies</div>
+                        <div class="cookie-pref-desc">Help us understand how visitors interact with our website.</div>
+                    </div>
+                    <button class="cookie-toggle" id="toggleAnalytics" aria-label="Toggle analytics cookies" aria-pressed="false"></button>
+                </div>
+                <div class="cookie-pref-item">
+                    <div class="cookie-pref-info">
+                        <div class="cookie-pref-name">Marketing Cookies</div>
+                        <div class="cookie-pref-desc">Used to deliver personalized advertisements and track campaign performance.</div>
+                    </div>
+                    <button class="cookie-toggle" id="toggleMarketing" aria-label="Toggle marketing cookies" aria-pressed="false"></button>
+                </div>
+                <div class="cookie-pref-item">
+                    <div class="cookie-pref-info">
+                        <div class="cookie-pref-name">Functional Cookies</div>
+                        <div class="cookie-pref-desc">Enable enhanced functionality and personalization (e.g., live chat, preferences).</div>
+                    </div>
+                    <button class="cookie-toggle" id="toggleFunctional" aria-label="Toggle functional cookies" aria-pressed="false"></button>
+                </div>
+                <div style="margin-top: 1rem; text-align: right;">
+                    <button class="cookie-btn cookie-btn-primary" id="cookieSavePreferences">Save Preferences</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js/main.js"></script>
 </body>
-
 </html>

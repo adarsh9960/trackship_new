@@ -22,6 +22,7 @@ function initMobileNav() {
     const overlay = document.querySelector('.mobile-overlay');
     const closeBtn = document.querySelector('.mobile-nav-close');
     const links = document.querySelectorAll('.mobile-nav-links a');
+    const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
 
     const toggleNav = () => {
         mobileNav.classList.toggle('active');
@@ -29,12 +30,42 @@ function initMobileNav() {
         document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
     };
 
+    const closeNav = () => {
+        mobileNav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
     hamburger?.addEventListener('click', toggleNav);
-    overlay?.addEventListener('click', toggleNav);
-    closeBtn?.addEventListener('click', toggleNav);
-    links.forEach(link => link.addEventListener('click', () => {
-        if (mobileNav.classList.contains('active')) toggleNav();
-    }));
+    overlay?.addEventListener('click', closeNav);
+    closeBtn?.addEventListener('click', closeNav);
+    
+    // Close nav when clicking a link
+    links.forEach(link => link.addEventListener('click', closeNav));
+    
+    // Close nav when clicking dropdown menu links
+    document.querySelectorAll('.mobile-dropdown-menu a').forEach(link => {
+        link.addEventListener('click', closeNav);
+    });
+
+    // Dropdown toggles
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const dropdown = toggle.closest('.mobile-dropdown');
+            dropdown.classList.toggle('active');
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.mobile-dropdown')) {
+            document.querySelectorAll('.mobile-dropdown.active').forEach(d => {
+                d.classList.remove('active');
+            });
+        }
+    });
 }
 
 // Scroll Reveal Animations
@@ -247,67 +278,150 @@ function initInstagramFloat() {
     }
 }
 
-// Testimonial Slider
-function initTestimonialSlider() {
-    const track = document.querySelector('.testimonial-track');
-    if (!track) return;
+// WhatsApp Inquiry Modal
+function initWhatsAppModal() {
+    const whatsappBtn = document.getElementById('whatsappFloatBtn');
+    const modal = document.getElementById('whatsappModal');
+    const closeBtn = modal?.querySelector('.modal-close');
+    const form = document.getElementById('whatsappForm');
+    
+    if (!whatsappBtn || !modal) return;
 
-    const slides = Array.from(track.children);
-    const dotsContainer = document.querySelector('.testimonial-dots');
-
-    if (slides.length === 0) return;
-
-    let currentIndex = 0;
-    let autoSlideInterval;
-
-    // Create dots
-    slides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => {
-            goToSlide(index);
-            stopAutoSlide();
-            startAutoSlide();
-        });
-        if (dotsContainer) dotsContainer.appendChild(dot);
+    // Open modal
+    whatsappBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     });
 
-    const dots = Array.from(document.querySelectorAll('.dot'));
+    // Close modal
+    const closeModal = () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    };
 
-    function goToSlide(index) {
-        currentIndex = index;
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        dots.forEach(d => d.classList.remove('active'));
-        if (dots[currentIndex]) dots[currentIndex].classList.add('active');
-    }
+    closeBtn?.addEventListener('click', closeModal);
+    
+    // Close on overlay click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
 
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % slides.length;
-        goToSlide(currentIndex);
-    }
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            closeModal();
+        }
+    });
 
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000);
-    }
+    // Form submission - redirect to WhatsApp with details
+    form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const data = {
+            fullName: formData.get('fullName'),
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            pincode: formData.get('pincode'),
+            city: formData.get('city'),
+            state: formData.get('state')
+        };
 
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-    }
+        // Validate required fields
+        if (!data.fullName || !data.phone || !data.email || !data.pincode || !data.city || !data.state) {
+            showToast('Please fill in all fields', 'error');
+            return;
+        }
 
-    startAutoSlide();
+        // Build WhatsApp message
+        const message = `Hello Trackship Logistics,
 
-    // Pause on hover
-    track.addEventListener('mouseenter', stopAutoSlide);
-    track.addEventListener('mouseleave', startAutoSlide);
+I would like to inquire about your services.
 
-    // Responsive adjustment
-    window.addEventListener('resize', () => {
-        track.style.transition = 'none';
-        goToSlide(currentIndex);
-        setTimeout(() => {
-            track.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        }, 10);
+*Full Name:* ${data.fullName}
+*Phone:* ${data.phone}
+*Email:* ${data.email}
+*Pincode:* ${data.pincode}
+*City:* ${data.city}
+*State:* ${data.state}
+
+Please contact me regarding my logistics requirements.`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/919136601185?text=${encodedMessage}`;
+
+        // Close modal
+        closeModal();
+        
+        // Open WhatsApp
+        window.open(whatsappUrl, '_blank');
+        
+        showToast('Redirecting to WhatsApp...', 'success');
+        
+        // Reset form
+        form.reset();
+    });
+}
+
+// Interactive Timeline Animation
+function initTimelineAnimation() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    if (timelineItems.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Stagger the animation
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 150);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    timelineItems.forEach(item => observer.observe(item));
+}
+
+// Parallax Scroll Effect
+function initParallax() {
+    const parallaxSections = document.querySelectorAll('.parallax-section');
+    if (parallaxSections.length === 0) return;
+
+    const handleScroll = () => {
+        const scrollY = window.scrollY;
+        
+        parallaxSections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top + scrollY;
+            const sectionHeight = section.offsetHeight;
+            
+            // Only apply parallax when section is in viewport
+            if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
+                const bg = section.querySelector('.parallax-bg');
+                if (bg) {
+                    const speed = 0.5;
+                    const yPos = -(scrollY - sectionTop) * speed;
+                    bg.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                }
+            }
+        });
+    };
+
+    // Throttle scroll event
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                handleScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
 }
 
@@ -322,6 +436,198 @@ document.addEventListener('DOMContentLoaded', () => {
     initModal();
     initBackToTop();
     highlightActiveLink();
-    initTestimonialSlider();
     initInstagramFloat();
+    initWhatsAppModal();
+    initTimelineAnimation();
+    initWelcomeAudio();
+    initCookieConsent();
+    initParallax();
 });
+
+// Welcome Audio - Play on first visit (index.html only)
+function initWelcomeAudio() {
+    // Only run on index.html
+    const isIndex = window.location.pathname.endsWith('index.html') || 
+                    window.location.pathname === '/' || 
+                    window.location.pathname === '/index.html';
+    if (!isIndex) return;
+
+    const hasVisited = sessionStorage.getItem('trackship_welcome_played');
+    if (hasVisited) return;
+
+    const audio = new Audio('assets/audio/welcome.mp3');
+    audio.volume = 0.7;
+    
+    // Try to play on first user interaction
+    const playAudio = () => {
+        audio.play().catch(() => {
+            // Autoplay blocked, wait for interaction
+        });
+        document.removeEventListener('click', playAudio);
+        document.removeEventListener('keydown', playAudio);
+    };
+
+    document.addEventListener('click', playAudio, { once: true });
+    document.addEventListener('keydown', playAudio, { once: true });
+    
+    // Also try immediate play (works if user has interacted with site before)
+    audio.play().then(() => {
+        sessionStorage.setItem('trackship_welcome_played', 'true');
+    }).catch(() => {
+        // Will play on first interaction via playAudio
+    });
+
+    // Mark as played when audio ends or after 30 seconds
+    audio.addEventListener('ended', () => {
+        sessionStorage.setItem('trackship_welcome_played', 'true');
+    });
+    
+    setTimeout(() => {
+        sessionStorage.setItem('trackship_welcome_played', 'true');
+    }, 30000);
+}
+
+// Cookie Consent Management
+function initCookieConsent() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    if (!cookieConsent) return;
+
+    const acceptAllBtn = document.getElementById('cookieAcceptAll');
+    const rejectBtn = document.getElementById('cookieReject');
+    const preferencesBtn = document.getElementById('cookiePreferences');
+    const savePreferencesBtn = document.getElementById('cookieSavePreferences');
+    const preferencesPanel = document.getElementById('cookiePreferencesPanel');
+    const toggles = {
+        analytics: document.getElementById('toggleAnalytics'),
+        marketing: document.getElementById('toggleMarketing'),
+        functional: document.getElementById('toggleFunctional')
+    };
+
+    // Check if consent already given
+    const consent = localStorage.getItem('cookieConsent');
+    if (consent) {
+        applyConsent(JSON.parse(consent));
+        return;
+    }
+
+    // Show consent banner after a short delay
+    setTimeout(() => {
+        cookieConsent.classList.add('show');
+    }, 1000);
+
+    // Accept all
+    acceptAllBtn?.addEventListener('click', () => {
+        const consent = {
+            essential: true,
+            analytics: true,
+            marketing: true,
+            functional: true,
+            timestamp: Date.now()
+        };
+        saveConsent(consent);
+        cookieConsent.classList.remove('show');
+    });
+
+    // Reject non-essential
+    rejectBtn?.addEventListener('click', () => {
+        const consent = {
+            essential: true,
+            analytics: false,
+            marketing: false,
+            functional: false,
+            timestamp: Date.now()
+        };
+        saveConsent(consent);
+        cookieConsent.classList.remove('show');
+    });
+
+    // Toggle preferences panel
+    preferencesBtn?.addEventListener('click', () => {
+        preferencesPanel.classList.toggle('show');
+    });
+
+    // Save preferences
+    savePreferencesBtn?.addEventListener('click', () => {
+        const consent = {
+            essential: true,
+            analytics: toggles.analytics?.classList.contains('active') || false,
+            marketing: toggles.marketing?.classList.contains('active') || false,
+            functional: toggles.functional?.classList.contains('active') || false,
+            timestamp: Date.now()
+        };
+        saveConsent(consent);
+        cookieConsent.classList.remove('show');
+        preferencesPanel.classList.remove('show');
+    });
+
+    // Toggle handlers
+    Object.keys(toggles).forEach(key => {
+        const toggle = toggles[key];
+        toggle?.addEventListener('click', () => {
+            if (!toggle.disabled) {
+                toggle.classList.toggle('active');
+                toggle.setAttribute('aria-pressed', toggle.classList.contains('active'));
+            }
+        });
+    });
+
+    // Close on outside click
+    cookieConsent?.addEventListener('click', (e) => {
+        if (e.target === cookieConsent) {
+            preferencesPanel.classList.remove('show');
+        }
+    });
+
+    function saveConsent(consent) {
+        localStorage.setItem('cookieConsent', JSON.stringify(consent));
+        applyConsent(consent);
+    }
+
+    function applyConsent(consent) {
+        // Apply analytics
+        if (consent.analytics) {
+            enableAnalytics();
+        } else {
+            disableAnalytics();
+        }
+        
+        // Apply marketing
+        if (consent.marketing) {
+            enableMarketing();
+        } else {
+            disableMarketing();
+        }
+        
+        // Apply functional
+        if (consent.functional) {
+            enableFunctional();
+        } else {
+            disableFunctional();
+        }
+    }
+
+    function enableAnalytics() {
+        // Add Google Analytics, etc.
+        console.log('Analytics enabled');
+    }
+
+    function disableAnalytics() {
+        console.log('Analytics disabled');
+    }
+
+    function enableMarketing() {
+        console.log('Marketing enabled');
+    }
+
+    function disableMarketing() {
+        console.log('Marketing disabled');
+    }
+
+    function enableFunctional() {
+        console.log('Functional enabled');
+    }
+
+    function disableFunctional() {
+        console.log('Functional disabled');
+    }
+}
