@@ -577,46 +577,58 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Welcome Audio - Play on first visit (index.html only)
+// ---------------------------------------------------------------------------
+// Welcome audio.
+//
+// Plays ONLY when the chatbot floater is clicked. There is deliberately no
+// autoplay and no first-visit trigger: this used to fire for new visitors on
+// their first interaction (guarded by sessionStorage), which played audio at
+// people unprompted. preload stays 'none' so the file is not fetched until the
+// button is actually pressed.
+// ---------------------------------------------------------------------------
 function initWelcomeAudio() {
-    // Only run on index.html
-    const isIndex = window.location.pathname.endsWith('index.html') || 
-                    window.location.pathname === '/' || 
-                    window.location.pathname === '/index.html';
-    if (!isIndex) return;
-
-    const hasVisited = sessionStorage.getItem('trackship_welcome_played');
-    if (hasVisited) return;
+    const btn = document.getElementById('chatbotFloatBtn');
+    if (!btn) return;
 
     const audio = new Audio('assets/audio/welcome.mp3');
-    audio.volume = 0.7;
-    
-    // Try to play on first user interaction
-    const playAudio = () => {
-        audio.play().catch(() => {
-            // Autoplay blocked, wait for interaction
+    audio.preload = 'none';
+    audio.volume = 0.9;
+
+    function setIdle() {
+        btn.classList.remove('playing');
+        btn.setAttribute('aria-label', 'Play our welcome message');
+        btn.setAttribute('title', 'Play our welcome message');
+    }
+
+    audio.addEventListener('ended', setIdle);
+    audio.addEventListener('pause', setIdle);
+
+    btn.addEventListener('click', () => {
+        // a second click stops playback
+        if (!audio.paused) {
+            audio.pause();
+            audio.currentTime = 0;
+            setIdle();
+            return;
+        }
+
+        audio.currentTime = 0;
+        audio.play().then(() => {
+            btn.classList.add('playing');
+            btn.setAttribute('aria-label', 'Stop the welcome message');
+            btn.setAttribute('title', 'Stop the welcome message');
+        }).catch((err) => {
+            // Don't fail silently - a blocked or unsupported play() would
+            // otherwise look like the button simply does nothing.
+            setIdle();
+            if (typeof showToast === 'function') {
+                showToast('Could not play the message on this device', 'error');
+            }
+            if (window.console && console.warn) {
+                console.warn('Welcome audio could not play:', err && err.name, err && err.message);
+            }
         });
-        document.removeEventListener('click', playAudio);
-        document.removeEventListener('keydown', playAudio);
-    };
-
-    document.addEventListener('click', playAudio, { once: true });
-    document.addEventListener('keydown', playAudio, { once: true });
-    
-    // Also try immediate play (works if user has interacted with site before)
-    audio.play().then(() => {
-        sessionStorage.setItem('trackship_welcome_played', 'true');
-    }).catch(() => {
-        // Will play on first interaction via playAudio
     });
-
-    // Mark as played when audio ends or after 30 seconds
-    audio.addEventListener('ended', () => {
-        sessionStorage.setItem('trackship_welcome_played', 'true');
-    });
-    
-    setTimeout(() => {
-        sessionStorage.setItem('trackship_welcome_played', 'true');
-    }, 30000);
 }
 
 // Cookie Consent Management
