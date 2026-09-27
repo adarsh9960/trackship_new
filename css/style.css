@@ -1539,6 +1539,95 @@ footer::before {
 }
 
 /* Instagram Floating Button */
+/* Click-to-call floater - mobile only, stacked above the Instagram floater.
+   Hidden by default so it never appears on desktop/tablet. */
+.call-float {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .call-float {
+        display: flex;
+        position: fixed;
+        /* Instagram sits at bottom: 2rem and is 30px tall, so it ends 62px up;
+           4.75rem (76px) leaves a clear gap above it */
+        bottom: 4.75rem;
+        left: 1rem;
+        width: 50px;
+        height: 50px;
+        align-items: center;
+        justify-content: center;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 50%;
+        font-size: 1.3rem;
+        text-decoration: none;
+        z-index: 1000;
+        animation: callPulse 1.8s infinite;
+    }
+
+    /* the handset itself rings */
+    .call-float i {
+        animation: phoneRing 1.8s ease-in-out infinite;
+        transform-origin: 50% 50%;
+    }
+}
+
+/* expanding ring */
+@keyframes callPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 115, 0, 0.65);
+    }
+
+    70% {
+        box-shadow: 0 0 0 16px rgba(255, 115, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 115, 0, 0);
+    }
+}
+
+/* phone-ringer shake: a short rotation burst, then rest before repeating */
+@keyframes phoneRing {
+    0%,
+    38%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    5% {
+        transform: rotate(-14deg);
+    }
+
+    11% {
+        transform: rotate(14deg);
+    }
+
+    17% {
+        transform: rotate(-11deg);
+    }
+
+    23% {
+        transform: rotate(11deg);
+    }
+
+    29% {
+        transform: rotate(-6deg);
+    }
+
+    34% {
+        transform: rotate(6deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .call-float,
+    .call-float i {
+        animation: none;
+    }
+}
+
 .instagram-float {
     position: fixed;
     bottom: 2rem;
