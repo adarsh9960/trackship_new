@@ -10,6 +10,10 @@
     <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Resource hints for faster third-party connections -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
 </head>
 
 <body>
@@ -18,7 +22,7 @@
     <header class="scrolled">
         <div class="container nav-container">
             <a href="index.html" class="logo">
-                <img src="img/logo.png" alt="Trackship Logistics">
+                <img src="img/logo.png" alt="Trackship Logistics" loading="eager" fetchpriority="high" decoding="async">
             </a>
             <nav class="nav-links">
                 <a href="index.html">Home</a>
@@ -70,7 +74,7 @@
     <div class="mobile-overlay"></div>
     <div class="mobile-nav">
         <div class="mobile-nav-header" style="display: flex; justify-content: space-between; align-items: center;">
-            <img src="img/logo.png" alt="Logo" style="height: 40px;">
+            <img src="img/logo.png" alt="Logo" style="height: 40px;" loading="lazy" decoding="async">
             <div class="mobile-nav-close" style="font-size: 1.5rem; cursor: pointer;">
                 <i class="fas fa-times"></i>
             </div>
@@ -143,7 +147,7 @@
         <div class="container">
             <div class="hero-grid">
                 <div class="reveal-left">
-                    <img src="img/courier-delivery.png" alt="Courier Delivery" style="border-radius: 20px;">
+                    <img src="img/courier-delivery.png" alt="Courier Delivery" style="border-radius: 20px;" loading="lazy" decoding="async">
                 </div>
                 <div class="reveal-right">
                     <span class="section-subtitle">Fast & Secure</span>
@@ -341,7 +345,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <a href="index.html" class="footer-logo"><img src="img/logo.png" alt="Trackship Logistics"></a>
+                    <a href="index.html" class="footer-logo"><img src="img/logo.png" alt="Trackship Logistics" loading="lazy" decoding="async"></a>
                     <p style="margin-top: 1rem;">Trackship Logistics is a premier courier and logistics provider offering end-to-end supply chain solutions across India.</p>
                     <div class="social-links">
                         <a href="https://facebook.com/trackshiplogistics" target="_blank"><i class="fab fa-facebook-f"></i></a>

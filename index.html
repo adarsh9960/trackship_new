@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Resource hints for faster third-party connections -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <!-- Hero video: start fetching immediately so it paints first -->
+    <link rel="preload" as="video" href="assets/video/6637307-hd_1280_720_30fps.mp4" type="video/mp4" media="(min-width: 769px)">
+    <link rel="preload" as="video" href="assets/video/6170595-hd_720_1280_25fps.mp4" type="video/mp4" media="(max-width: 768px)">
+
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -51,7 +58,7 @@
     <header>
         <div class="container nav-container">
             <a href="index.html" class="logo">
-                <img src="img/logo.png" alt="Trackship Logistics">
+                <img src="img/logo.png" alt="Trackship Logistics" loading="eager" fetchpriority="high" decoding="async">
             </a>
             <nav class="nav-links">
                 <a href="index.html" class="active">Home</a>
@@ -103,7 +110,7 @@
     <div class="mobile-overlay"></div>
     <div class="mobile-nav">
         <div class="mobile-nav-header" style="display: flex; justify-content: space-between; align-items: center;">
-            <img src="img/logo.png" alt="Logo" style="height: 40px;">
+            <img src="img/logo.png" alt="Logo" style="height: 40px;" loading="lazy" decoding="async">
             <div class="mobile-nav-close" style="font-size: 1.5rem; cursor: pointer;">
                 <i class="fas fa-times"></i>
             </div>
@@ -161,6 +168,29 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <video autoplay muted loop playsinline class="hero-video hero-video-desktop" preload="auto" fetchpriority="high">
+            <source src="assets/video/6637307-hd_1280_720_30fps.mp4" type="video/mp4" />
+        </video>
+        <video autoplay muted loop playsinline class="hero-video hero-video-mobile" preload="none">
+            <source src="assets/video/6170595-hd_720_1280_25fps.mp4" type="video/mp4" />
+        </video>
+
+        <script>
+            /* Hero video priority: load + play only the variant for this viewport */
+            (function () {
+                var isMobile = window.matchMedia('(max-width: 768px)').matches;
+                var d = document.querySelector('.hero-video-desktop');
+                var m = document.querySelector('.hero-video-mobile');
+                if (!d || !m) return;
+                var play = function (el) { var p = el.play(); if (p && p.catch) p.catch(function () {}); };
+                if (isMobile) {
+                    d.preload = 'none'; m.preload = 'auto'; m.load(); play(m);
+                } else {
+                    d.preload = 'auto'; m.preload = 'none'; d.load(); play(d);
+                }
+            })();
+        </script>
+
         <div class="container hero-grid">
             <div class="hero-content reveal-left">
                 <span class="hero-badge">🚀 India's Trusted Logistics Partner</span>
@@ -174,7 +204,7 @@
                 </div>
             </div>
             <div class="hero-img reveal-right">
-                <img src="img/hero-delivery.png" alt="Delivery Service">
+                <img src="img/hero-delivery.png" alt="Delivery Service" loading="lazy" decoding="async">
                 <div class="glass-badge badge-1">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <i class="fas fa-box-open" style="color: var(--accent); font-size: 1.5rem;"></i>
@@ -196,12 +226,7 @@
             </div>
             
         </div>
-        <video autoplay muted loop playsinline class="hero-video hero-video-desktop">
-            <source src="assets/video/6637307-hd_1280_720_30fps.mp4" type="video/mp4" />
-        </video>
-        <video autoplay muted loop playsinline class="hero-video hero-video-mobile">
-            <source src="assets/video/6170595-hd_720_1280_25fps.mp4" type="video/mp4" />
-        </video>
+        
     </section>
 
         <!-- Partners Section -->
@@ -213,19 +238,19 @@
                 </div>
                 <div class="marquee-container">
                     <div class="marquee">
-                        <img src="img/partners/amazon.png" alt="Amazon">
-                        <img src="img/partners/flipkart.png" alt="Flipkart">
-                        <img src="img/partners/swiggy.png" alt="Swiggy">
-                        <img src="img/partners/meesho.png" alt="Meesho">
-                        <img src="img/partners/myntra.png" alt="Myntra">
-                        <img src="img/partners/delhivery.png" alt="Delhivery">
+                        <img src="img/partners/amazon.png" alt="Amazon" loading="lazy" decoding="async">
+                        <img src="img/partners/flipkart.png" alt="Flipkart" loading="lazy" decoding="async">
+                        <img src="img/partners/swiggy.png" alt="Swiggy" loading="lazy" decoding="async">
+                        <img src="img/partners/meesho.png" alt="Meesho" loading="lazy" decoding="async">
+                        <img src="img/partners/myntra.png" alt="Myntra" loading="lazy" decoding="async">
+                        <img src="img/partners/delhivery.png" alt="Delhivery" loading="lazy" decoding="async">
                         <!-- Repeat for infinite scroll -->
-                        <img src="img/partners/amazon.png" alt="Amazon">
-                        <img src="img/partners/flipkart.png" alt="Flipkart">
-                        <img src="img/partners/swiggy.png" alt="Swiggy">
-                        <img src="img/partners/meesho.png" alt="Meesho">
-                        <img src="img/partners/myntra.png" alt="Myntra">
-                        <img src="img/partners/delhivery.png" alt="Delhivery">
+                        <img src="img/partners/amazon.png" alt="Amazon" loading="lazy" decoding="async">
+                        <img src="img/partners/flipkart.png" alt="Flipkart" loading="lazy" decoding="async">
+                        <img src="img/partners/swiggy.png" alt="Swiggy" loading="lazy" decoding="async">
+                        <img src="img/partners/meesho.png" alt="Meesho" loading="lazy" decoding="async">
+                        <img src="img/partners/myntra.png" alt="Myntra" loading="lazy" decoding="async">
+                        <img src="img/partners/delhivery.png" alt="Delhivery" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>
@@ -240,7 +265,7 @@
                         style="position: absolute; width: 100%; height: 100%; border: 10px solid var(--accent); top: 20px; left: -20px; z-index: -1; border-radius: 20px;">
                     </div>
                     <img src="img/about-company.png" alt="About Company"
-                        style="border-radius: 20px; box-shadow: var(--shadow-lg);">
+                        style="border-radius: 20px; box-shadow: var(--shadow-lg);" loading="lazy" decoding="async">
                 </div>
                 <div class="reveal-right">
                     <span class="section-subtitle">About Us</span>
@@ -406,7 +431,7 @@
                 </div>
                 <div class="reveal-right">
                     <img src="img/tech-dashboard.png" alt="Logistics Dashboard"
-                        style="border-radius: 20px; box-shadow: var(--shadow-lg);">
+                        style="border-radius: 20px; box-shadow: var(--shadow-lg);" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -456,7 +481,7 @@
                         <span class="city-badge">West Bengal</span>
                         <span class="city-badge">Assam</span>
                     </div>
-                    <img src="img/india-map.png" alt="India Network Map" style="margin-top: 2rem; max-width: 80%;">
+                    <img src="img/india-map.png" alt="India Network Map" style="margin-top: 2rem; max-width: 80%;" loading="lazy" decoding="async">
                 </div>
                 <div class="reveal-right">
                     <div class="form-card">
@@ -516,7 +541,7 @@
             <div class="hero-grid" style="grid-template-columns: 0.8fr 1.2fr;">
                 <div class="reveal-left">
                     <img src="img/green-delivery.png" alt="Sustainable Logistics"
-                        style="border-radius: 20px; box-shadow: var(--shadow-lg);">
+                        style="border-radius: 20px; box-shadow: var(--shadow-lg);" loading="lazy" decoding="async">
                 </div>
                 <div class="reveal-right">
                     <span class="section-subtitle">Future Forward</span>
@@ -820,7 +845,6 @@
                                 </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- CTA Section -->
@@ -843,8 +867,8 @@
 
     <!-- Animated India Landmarks & Bikes -->
     <section class="india-animation-section">
-        <img src="/img/svg/truck.svg" class="bike bike-rtl" alt="Delivery Bike">
-        <img src="img/bike-right-to-left.png" class="bike bike-ltr" alt="Delivery Bike">
+        <img src="/img/svg/truck.svg" class="bike bike-rtl" alt="Delivery Bike" loading="lazy" decoding="async">
+        <img src="img/bike-right-to-left.png" class="bike bike-ltr" alt="Delivery Bike" loading="lazy" decoding="async">
     </section>
 
         <!-- Footer -->
@@ -852,7 +876,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <a href="index.html" class="footer-logo"><img src="img/logo.png" alt="Trackship Logistics"></a>
+                    <a href="index.html" class="footer-logo"><img src="img/logo.png" alt="Trackship Logistics" loading="lazy" decoding="async"></a>
                     <p style="margin-top: 1rem;">Trackship Logistics is a premier courier and logistics provider offering end-to-end supply chain solutions across India.</p>
                     <div class="social-links">
                         <a href="https://facebook.com/trackshiplogistics" target="_blank"><i class="fab fa-facebook-f"></i></a>
