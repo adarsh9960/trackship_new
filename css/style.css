@@ -883,7 +883,7 @@ textarea:focus {
     border-radius: 12px;
     color: #fff;
     font-weight: 600;
-    z-index: 2000;
+    z-index: 10050;
     transform: translateX(120%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-lg);
@@ -905,15 +905,23 @@ textarea:focus {
 .modal-overlay {
     position: fixed;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
-    z-index: 2000;
+    /* Above the cookie bar (9999) so the bar can never cover the form */
+    z-index: 10000;
     display: none;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    /* The form is taller than a phone viewport - without this the submit
+       button is unreachable because body scroll is locked while open. */
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 1.5rem 1rem;
 }
 
 .modal-content {
@@ -925,6 +933,10 @@ textarea:focus {
     position: relative;
     box-shadow: var(--shadow-lg);
     animation: modalIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* auto margins centre the dialog when there is room, and let the
+       overlay scroll from the top when the form is taller than the screen */
+    margin: auto;
+    flex: 0 0 auto;
 }
 
 @keyframes modalIn {
@@ -1014,8 +1026,8 @@ textarea:focus {
     bottom: 2rem;
     right: 2rem;
     background: #25d366;
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2056,4 +2068,47 @@ footer::before {
     color: #fff;
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
+}
+
+
+/* Small-screen dialogs: keep the whole form (and its submit button) reachable */
+@media (max-width: 576px) {
+    .modal-overlay {
+        padding: 0.75rem 0.75rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .modal-content {
+        width: 100%;
+        padding: 2rem 1.25rem;
+        border-radius: 18px;
+    }
+
+    .modal-close {
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    #whatsappModal .modal-content .modal-header i {
+        font-size: 2rem;
+    }
+
+    .form-row {
+        gap: 0.75rem;
+    }
+
+    /* Top-anchored: a bottom toast would sit on top of the fallback button
+       it is telling the user to tap (and on the cookie bar). */
+    .toast {
+        top: 1rem;
+        bottom: auto;
+        left: 1rem;
+        right: 1rem;
+        padding: 1rem 1.25rem;
+        text-align: center;
+        transform: translateY(-150%);
+    }
+
+    .toast.show {
+        transform: translateY(0);
+    }
 }

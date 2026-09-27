@@ -366,7 +366,7 @@ Please contact me regarding my logistics requirements.`;
         if (blocked) {
             // Keep the modal open and hand the user a real link they can tap.
             showWhatsAppFallback(whatsappUrl, form);
-            showToast('Tap the green WhatsApp button to continue', 'error');
+            showToast('Tap the green button to open WhatsApp', 'error');
             return;
         }
 
@@ -409,6 +409,17 @@ function showWhatsAppFallback(url, form) {
         submitBtn.parentNode.insertBefore(wrap, submitBtn);
     } else {
         form.appendChild(wrap);
+    }
+
+    // On short screens the fallback lands below the fold - bring it into view.
+    // Use a plain instant scroll on a timer: requestAnimationFrame can be
+    // throttled (background/hidden tabs) and smooth scrolling can be
+    // interrupted, either of which leaves the button off-screen.
+    var overlay = wrap.closest('.modal-overlay');
+    if (overlay) {
+        setTimeout(function () {
+            overlay.scrollTop = overlay.scrollHeight;
+        }, 60);
     }
 }
 
